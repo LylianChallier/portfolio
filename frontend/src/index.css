@@ -130,3 +130,71 @@ h1, h2, h3, h4, h5, h6 {
 .animate-pulse-soft {
   animation: pulse-soft 2s ease-in-out infinite;
 }
+
+/* ===== Mobile Optimizations ===== */
+
+/* Improve touch targets */
+@media (max-width: 768px) {
+  /* Larger touch targets for links and buttons - ensure vertical centering */
+  a, button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Reduce border-radius on mobile for cleaner look */
+  .bento-card {
+    border-radius: 16px;
+  }
+
+  /* Disable hover effects on touch devices */
+  .bento-card:hover {
+    transform: none;
+  }
+
+  /* Smoother scrolling on iOS */
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar on mobile */
+  ::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+
+  footer {
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improve tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: rgba(67, 56, 202, 0.1);
+}
+
+/* Active states for mobile */
+@media (hover: none) {
+  .bento-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  a:active, button:active {
+    opacity: 0.8;
+  }
+}

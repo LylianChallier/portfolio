@@ -1,9 +1,11 @@
-import { motion, type Variants } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { useTranslation, Trans } from 'react-i18next';
 import {
   Github, Linkedin, Mail,
   ArrowUpRight, Target, Code,
-  ExternalLink, BookOpen, GraduationCap, Briefcase, Globe, FileText, Star, Settings
+  ExternalLink, BookOpen, GraduationCap, Briefcase, Globe, FileText, Star, Settings,
+  Menu, X
 } from 'lucide-react';
 import FractaleBackground from './components/FractaleBackground';
 
@@ -120,17 +122,27 @@ const ProjectCard = ({ title, desc, icon, stack, link }: ProjectCardProps) => (
     target="_blank"
     rel="noopener noreferrer"
     whileHover={{ y: -2 }}
-    className="group block bento-card p-6"
+    className="group block bento-card p-4 sm:p-6"
   >
-    <div className="flex justify-between items-start mb-4">
+    {/* Mobile: emoji + title + arrow on same line */}
+    <div className="flex items-center gap-2 mb-2 sm:hidden">
+      <span className="text-2xl">{icon}</span>
+      <h3 className="flex-1 text-base font-bold text-ink-dark group-hover:text-royal-600 transition-colors">{title}</h3>
+      <ExternalLink className="text-ink-light group-hover:text-royal-500 transition-colors shrink-0" size={16} />
+    </div>
+    {/* Desktop: original layout */}
+    <div className="hidden sm:flex justify-between items-start mb-4">
       <span className="text-3xl">{icon}</span>
       <ExternalLink className="text-ink-light group-hover:text-royal-500 transition-colors" size={18} />
     </div>
-    <h3 className="text-xl font-bold text-ink-dark mb-2 group-hover:text-royal-600 transition-colors">{title}</h3>
-    <p className="text-ink-light text-sm mb-4 leading-relaxed">{desc}</p>
-    <div className="flex flex-wrap gap-2">
+    <h3 className="hidden sm:block text-xl font-bold text-ink-dark mb-2 group-hover:text-royal-600 transition-colors">{title}</h3>
+    <p className="text-ink-light text-sm mb-3 sm:mb-4 leading-relaxed line-clamp-2 sm:line-clamp-none">{desc}</p>
+    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+      {stack.slice(0, 3).map((s, i) => (
+        <span key={i} className="text-xs text-royal-500 font-medium bg-royal-50 px-2 py-1 rounded-lg sm:hidden">#{s}</span>
+      ))}
       {stack.map((s, i) => (
-        <span key={i} className="text-xs text-royal-500 font-medium bg-royal-50 px-2 py-1 rounded-lg">#{s}</span>
+        <span key={i} className="hidden sm:inline-block text-xs text-royal-500 font-medium bg-royal-50 px-2 py-1 rounded-lg">#{s}</span>
       ))}
     </div>
   </motion.a>
@@ -160,7 +172,7 @@ const TimelineItem = ({ date, title, organization, description, dashed = false }
 );
 
 // Language Switch Component
-const LanguageSwitch = () => {
+const LanguageSwitch = ({ className = "" }: { className?: string }) => {
   const { i18n } = useTranslation();
   const currentLang = i18n.language.startsWith('fr') ? 'fr' : 'en';
 
@@ -172,7 +184,7 @@ const LanguageSwitch = () => {
   return (
     <button
       onClick={toggleLanguage}
-      className="flex items-center gap-1.5 text-sm text-ink-medium hover:text-royal-500 transition-colors"
+      className={`flex items-center gap-1.5 text-sm text-ink-medium hover:text-royal-500 transition-colors ${className}`}
       aria-label="Switch language"
     >
       <Globe size={16} />
@@ -181,9 +193,70 @@ const LanguageSwitch = () => {
   );
 };
 
+// Mobile Menu Component
+const MobileMenu = ({ isOpen, onClose, t }: { isOpen: boolean; onClose: () => void; t: (key: string) => string }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+          />
+          {/* Menu Panel */}
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed right-0 top-0 h-full w-72 bg-white/95 backdrop-blur-xl z-50 shadow-2xl"
+          >
+            <div className="flex flex-col h-full p-6">
+              <div className="flex justify-end mb-8">
+                <button
+                  onClick={onClose}
+                  className="p-2 hover:bg-royal-50 rounded-full transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X size={24} className="text-ink-dark" />
+                </button>
+              </div>
+              <nav className="flex flex-col gap-4">
+                <a href="#" onClick={onClose} className="text-lg font-bold text-ink-dark hover:text-royal-500 transition-colors py-2">
+                  {t('nav.home')}
+                </a>
+                <a href="#projets" onClick={onClose} className="text-lg text-ink-medium hover:text-royal-500 transition-colors py-2">
+                  {t('nav.projects')}
+                </a>
+                <a href="#parcours" onClick={onClose} className="text-lg text-ink-medium hover:text-royal-500 transition-colors py-2">
+                  {t('nav.journey')}
+                </a>
+                <a href="#blog" onClick={onClose} className="text-lg text-ink-medium hover:text-royal-500 transition-colors py-2">
+                  {t('nav.blog')}
+                </a>
+                <a href="mailto:lylian.challier@student-cs.fr" onClick={onClose} className="text-lg text-ink-dark font-medium hover:text-royal-500 transition-colors py-2">
+                  {t('nav.contact')}
+                </a>
+              </nav>
+              <div className="mt-auto pt-6 border-t border-royal-100">
+                <LanguageSwitch className="py-2" />
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
 // Application principale
 function App() {
   const { t } = useTranslation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const projects = [
     {
@@ -271,12 +344,16 @@ function App() {
       {/* Fond Julia interactif */}
       <FractaleBackground />
 
-      {/* Navbar flottante */}
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} t={t} />
+
+      {/* Navbar flottante - Desktop */}
+      <nav className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] md:w-auto max-w-xl">
+        {/* Desktop Navigation */}
         <motion.div
           initial={false}
           animate={{ y: 0, opacity: 1, scale: 1 }}
-          className="bg-white/90 backdrop-blur-xl border-2 border-royal-600 rounded-full px-6 py-3 flex items-center gap-6 shadow-bento"
+          className="hidden md:flex bg-white/90 backdrop-blur-xl border-2 border-royal-600 rounded-full px-6 py-3 items-center gap-6 shadow-bento"
         >
           <a href="#" className="font-bold text-ink-dark hover:text-royal-500 transition-colors">{t('nav.home')}</a>
           <a href="#projets" className="text-sm text-ink-medium hover:text-royal-500 transition-colors">{t('nav.projects')}</a>
@@ -288,24 +365,43 @@ function App() {
           <div className="w-px h-4 bg-royal-200" />
           <LanguageSwitch />
         </motion.div>
+
+        {/* Mobile Navigation */}
+        <motion.div
+          initial={false}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          className="flex md:hidden bg-white/90 backdrop-blur-xl border-2 border-royal-600 rounded-full px-4 py-2.5 items-center justify-between shadow-bento"
+        >
+          <a href="#" className="font-bold text-ink-dark text-sm flex items-center">{t('nav.home')}</a>
+          <div className="flex items-center gap-3">
+            <LanguageSwitch />
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="p-1.5 hover:bg-royal-50 rounded-full transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu size={22} className="text-ink-dark" />
+            </button>
+          </div>
+        </motion.div>
       </nav>
 
-      <main className="max-w-6xl mx-auto px-4 pt-32 pb-20 relative z-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-24 md:pt-32 pb-16 md:pb-20 relative z-10">
 
         {/* Header */}
-        <header className="mb-16">
+        <header className="mb-10 md:mb-16">
           <div className="flex flex-col lg:flex-row lg:gap-8 lg:items-end">
             {/* Bio */}
             <div className="flex-1">
               <h1
-                className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight"
+                className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-4 md:mb-6 leading-tight"
               >
                 {t('hero.greeting')}{' '}
                 <span className="text-white">{t('hero.name')}</span>
               </h1>
 
               <p
-                className="text-white text-lg md:text-xl leading-relaxed"
+                className="text-white text-base sm:text-lg md:text-xl leading-relaxed"
               >
                 <Trans i18nKey="hero.description">
                   MSc student at <span className="font-semibold text-royal-300">CentraleSupelec</span>, specialized in mathematics, AI, machine learning and deep learning, applying for a 6 month experience starting March 2026 as a step toward a future industrial PhD.
@@ -313,7 +409,7 @@ function App() {
               </p>
 
               <p
-                className="text-white text-base md:text-lg leading-relaxed mt-4"
+                className="text-white text-sm sm:text-base md:text-lg leading-relaxed mt-3 md:mt-4"
               >
                 <Trans i18nKey="hero.subdescription">
                   This year I was selected for the <span className="font-medium text-white">Digital Tech Year</span> selective track, an innovation program, and awarded the <span className="font-medium text-white">MathTech Gap Year fellowship</span> (4 laureates, FMJH). This experience bridges real-world AI innovation with my PhD-oriented research goals.
@@ -323,7 +419,7 @@ function App() {
 
             {/* Carte Contact */}
             <div
-              className="bento-card p-6 mt-8 lg:mt-0 lg:w-64 lg:shrink-0"
+              className="bento-card p-5 sm:p-6 mt-6 lg:mt-0 lg:w-64 lg:shrink-0"
             >
               <h3 className="text-xs font-bold text-royal-500 uppercase tracking-wider mb-4">{t('contact.title')}</h3>
               <div className="flex flex-col gap-3">
@@ -351,10 +447,10 @@ function App() {
         </header>
 
         {/* Bento Grid Principal */}
-        <section className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16 auto-rows-[180px]">
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 md:mb-16 auto-rows-auto sm:auto-rows-[180px]">
 
           {/* Grande carte: Projet Star */}
-          <BentoItem colSpan="md:col-span-2" rowSpan="md:row-span-2" noAnimation>
+          <BentoItem colSpan="sm:col-span-2 md:col-span-2" rowSpan="sm:row-span-2 md:row-span-2" noAnimation>
             <div className="flex flex-col justify-between h-full">
               <div>
                 <div className="flex items-center gap-2 mb-4">
@@ -412,7 +508,7 @@ function App() {
           </BentoItem>
 
           {/* Carte Dernier Article Blog */}
-          <BentoItem colSpan="md:col-span-1" rowSpan="md:row-span-2" noAnimation>
+          <BentoItem colSpan="sm:col-span-1 md:col-span-1" rowSpan="sm:row-span-2 md:row-span-2" noAnimation>
             <div className="flex flex-col h-full">
               <div className="flex items-center gap-2 mb-3">
                 <FileText size={16} className="text-royal-500" />
@@ -448,13 +544,13 @@ function App() {
         </section>
 
         {/* Section Stack Technique */}
-        <section className="mb-16">
-          <div className="bento-card p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <Settings className="text-royal-500" size={24} />
-              <h2 className="text-2xl font-bold text-ink-dark">{t('tech.title')}</h2>
+        <section className="mb-10 md:mb-16">
+          <div className="bento-card p-5 sm:p-6 md:p-8">
+            <div className="flex items-center gap-3 mb-4 md:mb-6">
+              <Settings className="text-royal-500" size={22} />
+              <h2 className="text-xl md:text-2xl font-bold text-ink-dark">{t('tech.title')}</h2>
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               <div>
                 <TechSection title={t('tech.languages')} items={techSections.languages} />
                 <TechSection title={t('tech.devops')} items={techSections.devops} />
@@ -466,23 +562,23 @@ function App() {
         </section>
 
         {/* Section Projets */}
-        <section id="projets" className="mb-16">
+        <section id="projets" className="mb-10 md:mb-16">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
             custom={0}
-            className="flex items-center gap-3 mb-8"
+            className="flex items-center gap-3 mb-6 md:mb-8"
           >
             <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
-              <BookOpen className="text-white" size={24} />
+              <BookOpen className="text-white" size={22} />
             </div>
-            <h2 className="text-3xl font-bold text-white">{t('projects.title')}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">{t('projects.title')}</h2>
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -503,17 +599,17 @@ function App() {
         </section>
 
         {/* Section Timeline Parcours */}
-        <section id="parcours" className="mb-16">
-          <div className="flex items-center gap-3 mb-8">
+        <section id="parcours" className="mb-10 md:mb-16">
+          <div className="flex items-center gap-3 mb-6 md:mb-8">
             <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
-              <GraduationCap className="text-white" size={24} />
+              <GraduationCap className="text-white" size={22} />
             </div>
-            <h2 className="text-3xl font-bold text-white">{t('journey.title')}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">{t('journey.title')}</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-8">
             {/* Timeline Academique */}
-            <div className="bento-card p-8">
+            <div className="bento-card p-5 sm:p-6 md:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <GraduationCap className="text-emerald-500" size={22} />
                 <h3 className="text-xl font-bold text-ink-dark">{t('journey.education')}</h3>
@@ -555,7 +651,7 @@ function App() {
             </div>
 
             {/* Timeline Professionnelle */}
-            <div className="bento-card p-8">
+            <div className="bento-card p-5 sm:p-6 md:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <Briefcase className="text-emerald-500" size={22} />
                 <h3 className="text-xl font-bold text-ink-dark">{t('journey.experience')}</h3>
@@ -598,16 +694,16 @@ function App() {
         </section>
 
         {/* Section CTA Contact */}
-        <section className="mb-8">
-          <div className="bento-card-accent rounded-3xl p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('cta.title')}</h2>
-            <p className="text-white/90 mb-6 max-w-xl mx-auto">
+        <section className="mb-6 md:mb-8">
+          <div className="bento-card-accent rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12 text-center">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">{t('cta.title')}</h2>
+            <p className="text-white/90 mb-5 md:mb-6 max-w-xl mx-auto text-sm sm:text-base">
               {t('cta.description')}
             </p>
             <a
               href="https://linkedin.com/in/lylian-challier"
               target="_blank"
-              className="cta-button inline-flex items-center gap-2 bg-white font-semibold px-6 py-3 rounded-full hover:bg-royal-50 transition-colors"
+              className="cta-button inline-flex items-center gap-2 bg-white font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-full hover:bg-royal-50 transition-colors text-sm sm:text-base"
             >
               {t('cta.button')}
               <ArrowUpRight size={18} />
@@ -618,8 +714,8 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 py-10 text-center border-t border-white/10 bg-black/30 backdrop-blur-md">
-        <p className="text-white/60 text-sm">
+      <footer className="relative z-10 py-8 md:py-10 text-center border-t border-white/10 bg-black/30 backdrop-blur-md px-4">
+        <p className="text-white/60 text-xs sm:text-sm">
           {t('footer.copyright')}
         </p>
       </footer>
