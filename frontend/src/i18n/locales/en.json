@@ -43,10 +43,10 @@
   },
   "tech": {
     "title": "Languages & Tools",
-    "core": "Core",
-    "backend": "Backend",
-    "prod": "Production",
-    "frontend": "Frontend"
+    "languages": "Languages",
+    "devops": "DevOps",
+    "aiml": "AI / ML",
+    "prototyping": "Prototyping"
   },
   "projects": {
     "title": "Projects",

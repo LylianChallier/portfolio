@@ -43,37 +43,37 @@
   },
   "tech": {
     "title": "Langages & Outils",
-    "core": "Core",
-    "backend": "Backend",
-    "prod": "Production",
-    "frontend": "Frontend"
+    "languages": "Langages",
+    "devops": "DevOps",
+    "aiml": "AI / ML",
+    "prototyping": "Prototypage"
   },
   "projects": {
     "title": "Projets",
     "items": {
       "versailles": {
-        "title": "Assistant IA Agentique",
-        "desc": "Assistant IA agentique pour visites touristiques au Chateau de Versailles."
+        "title": "Assistant de visite IA",
+        "desc": "Assistant IA agentique pour les visites touristiques au Chateau de Versailles."
+      },
+      "travelagent": {
+        "title": "Planificateur de Voyages IA",
+        "desc": "WebScrapping et RAG visuel ColPali pour un agent de planification de voyages."
       },
       "turbulence": {
-        "title": "IA Explicable pour la Turbulence",
-        "desc": "Decouverte de lois de paroi en convection turbulente avec SINDy et KAN."
+        "title": "Modèles Explicables pour la Convection Turbulente",
+        "desc": "Decouverte de lois de paroi en convection turbulente avec SINDy et KANs symboliques."
       },
       "vae": {
         "title": "Auto-Encodeurs Variationnels",
-        "desc": "Implementation de VAE avec application Streamlit interactive."
+        "desc": "Implémentation de 3 architectures VAE entraînables pour la génération d'images."
       },
-      "electric": {
-        "title": "Prevision de Demande Electrique",
-        "desc": "Prevision de demande electrique avec Deep Learning pour EDF."
+      "edf": {
+        "title": "Prévision Électrique",
+        "desc": "Prévision de la demande électrique avec du Deep Learning et AutoDL."
       },
-      "energy": {
-        "title": "Modelisation Energetique",
-        "desc": "Modelisation predictive de consommation energetique avec R."
-      },
-      "movies": {
-        "title": "Recommandation de Films",
-        "desc": "Systeme de recommandation de films avec apprentissage non supervise."
+      "yolov11": {
+        "title": "Détection d'Objets YOLOv11",
+        "desc": "Détection d'objets sensibles aux inondations en temps réel avec finetuning de YOLOv11."
       }
     }
   },
@@ -116,7 +116,7 @@
         "date": "avril - août 2025",
         "title": "Stagiaire en Recherche",
         "org": "LISN / CNRS",
-        "desc": "Découverte de lois physique avec de l'IA explicable"
+        "desc": "Découverte de lois physique avec de l'IA explicable, présentation à la Junior Conference Data Science & Engineering 2025"
       },
       "hackathon": {
         "date": "sept. 2025",

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { useTranslation, Trans } from 'react-i18next';
 import {
   Github, Linkedin, Mail,
@@ -7,6 +7,39 @@ import {
 } from 'lucide-react';
 import JuliaBackground from './components/FractaleBackground';
 
+// Easing professionnel
+const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+// Animation pour les éléments au scroll (below the fold)
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: smoothEase },
+  },
+};
+
+// Container avec stagger pour les sections au scroll
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+// Items du stagger pour les sections au scroll
+const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: smoothEase },
+  },
+};
+
 // Types
 interface BentoItemProps {
   children: React.ReactNode;
@@ -14,6 +47,8 @@ interface BentoItemProps {
   colSpan?: string;
   rowSpan?: string;
   accent?: boolean;
+  delay?: number;
+  noAnimation?: boolean;
 }
 
 interface ProjectCardProps {
@@ -38,12 +73,13 @@ interface TechSectionProps {
 }
 
 // Composant Bento Card
-const BentoItem = ({ children, className = "", colSpan = "col-span-1", rowSpan = "", accent = false }: BentoItemProps) => (
+const BentoItem = ({ children, className = "", colSpan = "col-span-1", rowSpan = "", accent = false, delay = 0, noAnimation = false }: BentoItemProps) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    whileHover={{ y: -4 }}
-    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+    initial={noAnimation ? false : { opacity: 0, y: 20 }}
+    whileInView={noAnimation ? undefined : { opacity: 1, y: 0 }}
+    viewport={noAnimation ? undefined : { once: true, margin: "-50px" }}
+    transition={noAnimation ? undefined : { duration: 0.5, ease: smoothEase, delay: delay * 0.1 }}
+    whileHover={{ y: -4, transition: { duration: 0.2 } }}
     className={`
       ${colSpan} ${rowSpan}
       ${accent ? 'bento-card-accent rounded-3xl' : 'bento-card'}
@@ -103,9 +139,13 @@ const ProjectCard = ({ title, desc, icon, stack, link }: ProjectCardProps) => (
 // Timeline Item
 const TimelineItem = ({ date, title, organization, description, dashed = false }: TimelineItemProps) => (
   <motion.div
-    initial={{ opacity: 0, x: 20 }}
+    initial={{ opacity: 0, x: 15 }}
     whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true }}
+    viewport={{ once: true, margin: "-20px" }}
+    transition={{
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    }}
     className="relative pl-8 pb-8 last:pb-0"
   >
     <div className="absolute left-0 top-1 w-4 h-4 rounded-full border-2 bg-emerald-500 border-emerald-300" />
@@ -147,71 +187,82 @@ function App() {
 
   const projects = [
     {
-      icon: "🏰",
-      titleKey: "projects.items.versailles.title",
-      descKey: "projects.items.versailles.desc",
-      stack: ["LangChain", "LangGraph", "Python"],
-      link: "https://github.com/lylianchallier"
+      icon: "🏝️",
+      titleKey: "projects.items.travelagent.title",
+      descKey: "projects.items.travelagent.desc",
+      stack: ["LangChain", "LangGraph", "ColPali", "Qdrant", "FastAPI", "Python"],
+      link: "https://github.com/lylianchallier/Lyliagent"
     },
     {
       icon: "⚗️",
       titleKey: "projects.items.turbulence.title",
       descKey: "projects.items.turbulence.desc",
-      stack: ["SINDy", "KAN", "Python"],
-      link: "https://github.com/lylianchallier"
+      stack: ["PySINDy", "PyKAN", "Python"],
+      link: "https://github.com/lylianchallier/symboliConvection"
     },
     {
       icon: "🌇",
       titleKey: "projects.items.vae.title",
       descKey: "projects.items.vae.desc",
       stack: ["PyTorch", "Streamlit", "Python"],
-      link: "https://github.com/lylianchallier"
+      link: "https://github.com/lylianchallier/VAEs"
     },
     {
-      icon: "💡",
-      titleKey: "projects.items.electric.title",
-      descKey: "projects.items.electric.desc",
-      stack: ["Deep Learning", "Python", "EDF"],
-      link: "https://github.com/lylianchallier"
+      icon: "🌊",
+      titleKey: "projects.items.yolov11.title",
+      descKey: "projects.items.yolov11.desc",
+      stack: ["YOLOv11", "RoboFlow", "Python"],
+      link: "https://github.com/lylianchallier/"
     },
     {
       icon: "⚡️",
-      titleKey: "projects.items.energy.title",
-      descKey: "projects.items.energy.desc",
-      stack: ["R", "Statistics", "EDF"],
-      link: "https://github.com/lylianchallier"
+      titleKey: "projects.items.edf.title",
+      descKey: "projects.items.edf.desc",
+      stack: ["PyTorch", "Dragon-AutoDL", "Python"],
+      link: "https://github.com/lylianchallier/ElectricDemandeForecasting"
     },
     {
-      icon: "🎬",
-      titleKey: "projects.items.movies.title",
-      descKey: "projects.items.movies.desc",
-      stack: ["Clustering", "Python", "ML"],
-      link: "https://github.com/lylianchallier"
+      icon: "🏰",
+      titleKey: "projects.items.versailles.title",
+      descKey: "projects.items.versailles.desc",
+      stack: ["LangChain", "LangGraph", "Python"],
+      link: "https://github.com/lylianchallier/Vers-AI-lles"
     }
   ];
 
   const techSections = {
-    core: [
+    languages: [
       { name: "Python", logo: "python", color: "3776AB" },
-      { name: "PyTorch", logo: "pytorch", color: "EE4C2C" },
-      { name: "Scikit--learn", logo: "scikit-learn", color: "F7931E" },
-      { name: "NumPy", logo: "numpy", color: "013243" },
-      { name: "Pandas", logo: "pandas", color: "150458" },
       { name: "R", logo: "r", color: "276DC3" },
+      { name: "SQL", logo: "postgresql", color: "336791" },
+      { name: "TypeScript", logo: "typescript", color: "3178C6" },
     ],
-    backend: [
-      { name: "FastAPI", logo: "fastapi", color: "005571" },
-      { name: "PostgreSQL", logo: "postgresql", color: "336791" },
-    ],
-    prod: [
-      { name: "Docker", logo: "docker", color: "257bd6" },
+    devops: [
       { name: "Git", logo: "git", color: "F05032" },
       { name: "Linux", logo: "linux", color: "FCC624" },
     ],
-    frontend: [
+    aiml: [
+      { name: "ColPali", logo: "huggingface", color: "FFD21E" },
+      { name: "LangChain", logo: "langchain", color: "1C3C3C" },
+      { name: "LangGraph", logo: "langchain", color: "1C3C3C" },
+      { name: "NumPy", logo: "numpy", color: "013243" },
+      { name: "Pandas", logo: "pandas", color: "150458" },
+      { name: "PydanticAI", logo: "pydantic", color: "E92063" },
+      { name: "PyTorch", logo: "pytorch", color: "EE4C2C" },
+      { name: "Scikit--learn", logo: "scikit-learn", color: "F7931E" },
+      { name: "Transformers", logo: "huggingface", color: "FFD21E" },
+      { name: "YOLOv11", logo: "yolo", color: "00FFFF" },
+    ],
+    prototyping: [
+      { name: "Django", logo: "django", color: "092E20" },
+      { name: "Docker", logo: "docker", color: "2496ED" },
+      { name: "Elasticsearch", logo: "elasticsearch", color: "005571" },
+      { name: "FastAPI", logo: "fastapi", color: "009688" },
+      { name: "PostgreSQL", logo: "postgresql", color: "336791" },
+      { name: "Qdrant", logo: "qdrant", color: "DC244C" },
       { name: "React", logo: "react", color: "61DAFB" },
       { name: "Streamlit", logo: "streamlit", color: "FF4B4B" },
-      { name: "LaTeX", logo: "latex", color: "008080" },
+      { name: "Vite", logo: "vite", color: "646CFF" },
     ],
   };
 
@@ -223,9 +274,8 @@ function App() {
       {/* Navbar flottante */}
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
         <motion.div
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          initial={false}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
           className="bg-white/90 backdrop-blur-xl border-2 border-royal-600 rounded-full px-6 py-3 flex items-center gap-6 shadow-bento"
         >
           <a href="#" className="font-bold text-ink-dark hover:text-royal-500 transition-colors">{t('nav.home')}</a>
@@ -247,44 +297,32 @@ function App() {
           <div className="flex flex-col lg:flex-row lg:gap-8 lg:items-end">
             {/* Bio */}
             <div className="flex-1">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
+              <h1
                 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight"
               >
                 {t('hero.greeting')}{' '}
                 <span className="text-white">{t('hero.name')}</span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+              <p
                 className="text-white text-lg md:text-xl leading-relaxed"
               >
                 <Trans i18nKey="hero.description">
                   MSc student at <span className="font-semibold text-royal-300">CentraleSupelec</span>, specialized in mathematics, AI, machine learning and deep learning, applying for a 6 month experience starting March 2026 as a step toward a future industrial PhD.
                 </Trans>
-              </motion.p>
+              </p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+              <p
                 className="text-white text-base md:text-lg leading-relaxed mt-4"
               >
                 <Trans i18nKey="hero.subdescription">
                   This year I was selected for the <span className="font-medium text-white">Digital Tech Year</span> selective track, an innovation program, and awarded the <span className="font-medium text-white">MathTech Gap Year fellowship</span> (4 laureates, FMJH). This experience bridges real-world AI innovation with my PhD-oriented research goals.
                 </Trans>
-              </motion.p>
+              </p>
             </div>
 
             {/* Carte Contact */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+            <div
               className="bento-card p-6 mt-8 lg:mt-0 lg:w-64 lg:shrink-0"
             >
               <h3 className="text-xs font-bold text-royal-500 uppercase tracking-wider mb-4">{t('contact.title')}</h3>
@@ -308,7 +346,7 @@ function App() {
                   <span className="text-sm font-medium">{t('contact.github')}</span>
                 </a>
               </div>
-            </motion.div>
+            </div>
           </div>
         </header>
 
@@ -316,7 +354,7 @@ function App() {
         <section className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16 auto-rows-[180px]">
 
           {/* Grande carte: Projet Star */}
-          <BentoItem colSpan="md:col-span-2" rowSpan="md:row-span-2">
+          <BentoItem colSpan="md:col-span-2" rowSpan="md:row-span-2" noAnimation>
             <div className="flex flex-col justify-between h-full">
               <div>
                 <div className="flex items-center gap-2 mb-4">
@@ -348,7 +386,7 @@ function App() {
           </BentoItem>
 
           {/* Carte Projet en cours */}
-          <BentoItem>
+          <BentoItem noAnimation>
             <a
               href="https://github.com/lylianchallier"
               target="_blank"
@@ -374,7 +412,7 @@ function App() {
           </BentoItem>
 
           {/* Carte Dernier Article Blog */}
-          <BentoItem colSpan="md:col-span-1" rowSpan="md:row-span-2">
+          <BentoItem colSpan="md:col-span-1" rowSpan="md:row-span-2" noAnimation>
             <div className="flex flex-col h-full">
               <div className="flex items-center gap-2 mb-3">
                 <FileText size={16} className="text-royal-500" />
@@ -396,7 +434,7 @@ function App() {
           </BentoItem>
 
           {/* Carte Objectif */}
-          <BentoItem accent>
+          <BentoItem accent noAnimation>
             <div className="flex flex-col justify-center items-center h-full text-center">
               <div className="flex items-center gap-2 mb-2">
                 <Target size={14} className="text-white" />
@@ -411,31 +449,30 @@ function App() {
 
         {/* Section Stack Technique */}
         <section className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bento-card p-8"
-          >
+          <div className="bento-card p-8">
             <div className="flex items-center gap-3 mb-6">
               <Settings className="text-royal-500" size={24} />
               <h2 className="text-2xl font-bold text-ink-dark">{t('tech.title')}</h2>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <TechSection title={t('tech.core')} items={techSections.core} />
-              <TechSection title={t('tech.backend')} items={techSections.backend} />
-              <TechSection title={t('tech.prod')} items={techSections.prod} />
-              <TechSection title={t('tech.frontend')} items={techSections.frontend} />
+            <div className="grid md:grid-cols-3 gap-6">
+              <div>
+                <TechSection title={t('tech.languages')} items={techSections.languages} />
+                <TechSection title={t('tech.devops')} items={techSections.devops} />
+              </div>
+              <TechSection title={t('tech.aiml')} items={techSections.aiml} />
+              <TechSection title={t('tech.prototyping')} items={techSections.prototyping} />
             </div>
-          </motion.div>
+          </div>
         </section>
 
         {/* Section Projets */}
         <section id="projets" className="mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            custom={0}
             className="flex items-center gap-3 mb-8"
           >
             <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
@@ -444,33 +481,35 @@ function App() {
             <h2 className="text-3xl font-bold text-white">{t('projects.title')}</h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {projects.map((project, i) => (
-              <ProjectCard
-                key={i}
-                icon={project.icon}
-                title={t(project.titleKey)}
-                desc={t(project.descKey)}
-                stack={project.stack}
-                link={project.link}
-              />
+              <motion.div key={i} variants={staggerItem}>
+                <ProjectCard
+                  icon={project.icon}
+                  title={t(project.titleKey)}
+                  desc={t(project.descKey)}
+                  stack={project.stack}
+                  link={project.link}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* Section Timeline Parcours */}
         <section id="parcours" className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-3 mb-8"
-          >
+          <div className="flex items-center gap-3 mb-8">
             <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
               <GraduationCap className="text-white" size={24} />
             </div>
             <h2 className="text-3xl font-bold text-white">{t('journey.title')}</h2>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Timeline Academique */}
@@ -560,12 +599,7 @@ function App() {
 
         {/* Section CTA Contact */}
         <section className="mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bento-card-accent rounded-3xl p-8 md:p-12 text-center"
-          >
+          <div className="bento-card-accent rounded-3xl p-8 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('cta.title')}</h2>
             <p className="text-white/90 mb-6 max-w-xl mx-auto">
               {t('cta.description')}
@@ -578,7 +612,7 @@ function App() {
               {t('cta.button')}
               <ArrowUpRight size={18} />
             </a>
-          </motion.div>
+          </div>
         </section>
 
       </main>
