@@ -82,33 +82,51 @@
     "education": "Education",
     "experience": "Experience",
     "items": {
-      "dty": {
-        "title": "Digital Tech Year",
-        "org": "CentraleSupelec",
-        "desc": "Innovation program, MathTech Gap Year fellowship (FMJH)"
+      "licence": {
+        "title": "Bachelor's in Mathematics",
+        "org": "University Paris-Saclay"
+      },
+      "exchange": {
+        "title": "Exchange program",
+        "org": "University of Seville"
       },
       "m1": {
         "title": "M1 Mathematics & AI",
         "org": "University Paris-Saclay"
       },
-      "licence": {
-        "title": "Bachelor's in Mathematics",
+      "dty": {
+        "title": "Digital Tech Year",
+        "org": "CentraleSupelec",
+        "desc": "Innovation program, MathTech Gap Year fellowship (FMJH)"
+      },
+      "m2": {
+        "title": "M2 Mathematics & AI",
         "org": "University Paris-Saclay"
       },
-      "versailles": {
-        "title": "AI Research Intern",
-        "org": "Palace of Versailles",
-        "desc": "Agentic AI visit assistant with LangChain"
+      "teacher": {
+        "title": "Teaching Assistant",
+        "org": "University Paris-Saclay",
+        "desc": "Mathematics courses for undergraduate students"
       },
       "lisn": {
         "title": "Research Intern",
         "org": "LISN / CNRS",
         "desc": "Explainable AI for turbulent convection"
       },
-      "edf": {
-        "title": "Data Science Project",
-        "org": "EDF / Paris-Saclay",
-        "desc": "Electric demand forecasting"
+      "hackathon": {
+        "title": "AI Hackathon",
+        "org": "CentraleSupelec",
+        "desc": "Team innovation challenge"
+      },
+      "prototyper": {
+        "title": "Prototyper",
+        "org": "Palace of Versailles",
+        "desc": "Agentic AI visit assistant with LangChain"
+      },
+      "horama": {
+        "title": "AI Intern",
+        "org": "Horama",
+        "desc": "AI project in company"
       }
     }
   },

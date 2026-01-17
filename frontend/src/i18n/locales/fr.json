@@ -82,39 +82,77 @@
     "education": "Formation",
     "experience": "Experience",
     "items": {
-      "dty": {
-        "title": "Digital Tech Year",
-        "org": "CentraleSupelec",
-        "desc": "Programme d'innovation, bourse MathTech Gap Year (FMJH)"
+      "licence": {
+        "date": "2021 - 2024",
+        "title": "Licence Mathématiques",
+        "org": "Université Paris-Saclay",
+        "desc": ""
+      },
+      "exchange": {
+        "date": "janv. - mai 2024",
+        "title": "Échange universitaire",
+        "org": "Université de Montréal",
+        "desc": "Début de ma spécialisation en Machine Learning"
       },
       "m1": {
-        "title": "M1 Mathematiques & IA",
-        "org": "Universite Paris-Saclay"
+        "date": "2024 - 2025",
+        "title": "M1 Mathématiques & IA",
+        "org": "Université Paris-Saclay",
+        "desc": "Cours avancés en IA, ML, Deep Learning et statistiques"
       },
-      "licence": {
-        "title": "Licence Mathematiques",
-        "org": "Universite Paris-Saclay"
+      "dty": {
+        "date": "2025 - 2026",
+        "title": "Digital Tech Year",
+        "org": "CentraleSupélec",
+        "desc": "Programme d'innovation, bourse MathTech Gap Year (FMJH)"
       },
-      "versailles": {
-        "title": "Stagiaire Recherche IA",
-        "org": "Chateau de Versailles",
-        "desc": "Assistant IA agentique avec LangChain"
+      "m2": {
+        "date": "2026 - 2027",
+        "title": "M2 Mathématiques & IA",
+        "org": "Université Paris-Saclay & CentraleSupélec",
+        "desc": "Bourse de l'institut DATA IA"
       },
       "lisn": {
-        "title": "Stagiaire Recherche",
+        "date": "avril - août 2025",
+        "title": "Stagiaire en Recherche",
         "org": "LISN / CNRS",
-        "desc": "IA explicable pour la convection turbulente"
+        "desc": "Découverte de lois physique avec de l'IA explicable"
       },
-      "edf": {
-        "title": "Projet Data Science",
-        "org": "EDF / Paris-Saclay",
-        "desc": "Prevision de demande electrique"
+      "hackathon": {
+        "date": "sept. 2025",
+        "title": "Hackathon Agentic AI",
+        "org": "Château de Versailles",
+        "desc": "Assistant IA agentique avec LangChain"
+      },
+      "renaultgroup": {
+        "date": "sept. - oct. 2025",
+        "title": "Agile Prototyper",
+        "org": "Paris Digital Lab x Renault Group",
+        "desc": "Marketplace interne et automatisation"
+      },
+      "bnf": {
+        "date": "nov. - déc. 2025",
+        "title": "Agile Prototyper",
+        "org": "Paris Digital Lab x Bibliothèque nationale de France",
+        "desc": "Recherche documentaire par RAG multimodal sur un large corpus d'archives (image et presse) avec une UI chatbot"
+      },
+      "matmut": {
+        "date": "janv. - févr. 2026",
+        "title": "Agile Prototyper",
+        "org": "Paris Digital Lab x Matmut",
+        "desc": "Webapp de prévention pour les inondations avec de la réalité augmentée et des modèles de détection d'objets (YOLOv11)"
+      },
+      "horama": {
+        "date": "mars - août 2026",
+        "title": "Stagiaire en Startup IA",
+        "org": "Horama AI",
+        "desc": "Analyse visuelle par IA générative dans plusieurs secteurs"
       }
     }
   },
   "cta": {
     "title": "Travaillons ensemble",
-    "description": "À la recherche d'une experience de 6 mois à partir de mars 2027. Ouvert aux stages de recherche et opportunités de thèse CIFRE.",
+    "description": "À la recherche d'une experience de 6 mois à partir de mars 2027 pouvant se poursuivre en thèse CIFRE.",
     "button": "Me contacter"
   },
   "footer": {

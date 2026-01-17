@@ -3,7 +3,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import {
   Github, Linkedin, Mail,
   ArrowUpRight, Target, Code,
-  ExternalLink, BookOpen, GraduationCap, Briefcase, Globe, FileText, Star
+  ExternalLink, BookOpen, GraduationCap, Briefcase, Globe, FileText, Star, Settings
 } from 'lucide-react';
 import JuliaBackground from './components/FractaleBackground';
 
@@ -29,6 +29,7 @@ interface TimelineItemProps {
   title: string;
   organization: string;
   description?: string;
+  dashed?: boolean;
 }
 
 interface TechSectionProps {
@@ -100,7 +101,7 @@ const ProjectCard = ({ title, desc, icon, stack, link }: ProjectCardProps) => (
 );
 
 // Timeline Item
-const TimelineItem = ({ date, title, organization, description }: TimelineItemProps) => (
+const TimelineItem = ({ date, title, organization, description, dashed = false }: TimelineItemProps) => (
   <motion.div
     initial={{ opacity: 0, x: 20 }}
     whileInView={{ opacity: 1, x: 0 }}
@@ -108,7 +109,9 @@ const TimelineItem = ({ date, title, organization, description }: TimelineItemPr
     className="relative pl-8 pb-8 last:pb-0"
   >
     <div className="absolute left-0 top-1 w-4 h-4 rounded-full border-2 bg-emerald-500 border-emerald-300" />
-    <div className="absolute left-[7px] top-5 w-0.5 h-full bg-emerald-200 last:hidden" />
+    <div
+      className={`absolute left-[7px] top-5 w-0.5 h-full last:hidden ${dashed ? 'border-l-2 border-dashed border-emerald-300 bg-transparent' : 'bg-emerald-200'}`}
+    />
     <span className="text-xs font-semibold text-emerald-600">{date}</span>
     <h4 className="text-lg font-bold text-ink-dark mt-1">{title}</h4>
     <p className="text-ink-medium font-medium">{organization}</p>
@@ -258,7 +261,7 @@ function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-white/80 text-lg md:text-xl leading-relaxed"
+                className="text-white text-lg md:text-xl leading-relaxed"
               >
                 <Trans i18nKey="hero.description">
                   MSc student at <span className="font-semibold text-royal-300">CentraleSupelec</span>, specialized in mathematics, AI, machine learning and deep learning, applying for a 6 month experience starting March 2026 as a step toward a future industrial PhD.
@@ -269,10 +272,10 @@ function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-white/60 text-base md:text-lg leading-relaxed mt-4"
+                className="text-white text-base md:text-lg leading-relaxed mt-4"
               >
                 <Trans i18nKey="hero.subdescription">
-                  This year I was selected for the <span className="font-medium text-white/90">Digital Tech Year</span> selective track, an innovation program, and awarded the <span className="font-medium text-white/90">MathTech Gap Year fellowship</span> (4 laureates, FMJH). This experience bridges real-world AI innovation with my PhD-oriented research goals.
+                  This year I was selected for the <span className="font-medium text-white">Digital Tech Year</span> selective track, an innovation program, and awarded the <span className="font-medium text-white">MathTech Gap Year fellowship</span> (4 laureates, FMJH). This experience bridges real-world AI innovation with my PhD-oriented research goals.
                 </Trans>
               </motion.p>
             </div>
@@ -414,7 +417,10 @@ function App() {
             viewport={{ once: true }}
             className="bento-card p-8"
           >
-            <h2 className="text-2xl font-bold text-ink-dark mb-6">{t('tech.title')}</h2>
+            <div className="flex items-center gap-3 mb-6">
+              <Settings className="text-royal-500" size={24} />
+              <h2 className="text-2xl font-bold text-ink-dark">{t('tech.title')}</h2>
+            </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <TechSection title={t('tech.core')} items={techSections.core} />
               <TechSection title={t('tech.backend')} items={techSections.backend} />
@@ -475,20 +481,36 @@ function App() {
               </div>
               <div className="space-y-2">
                 <TimelineItem
-                  date="2024 - 2025"
+                  date={t('journey.items.licence.date')}
+                  title={t('journey.items.licence.title')}
+                  organization={t('journey.items.licence.org')}
+                  description={t('journey.items.licence.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.exchange.date')}
+                  title={t('journey.items.exchange.title')}
+                  organization={t('journey.items.exchange.org')}
+                  description={t('journey.items.exchange.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.m1.date')}
+                  title={t('journey.items.m1.title')}
+                  organization={t('journey.items.m1.org')}
+                  description={t('journey.items.m1.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.dty.date')}
                   title={t('journey.items.dty.title')}
                   organization={t('journey.items.dty.org')}
                   description={t('journey.items.dty.desc')}
+                  dashed
                 />
                 <TimelineItem
-                  date="2023 - 2024"
-                  title={t('journey.items.m1.title')}
-                  organization={t('journey.items.m1.org')}
-                />
-                <TimelineItem
-                  date="2020 - 2023"
-                  title={t('journey.items.licence.title')}
-                  organization={t('journey.items.licence.org')}
+                  date={t('journey.items.m2.date')}
+                  title={t('journey.items.m2.title')}
+                  organization={t('journey.items.m2.org')}
+                  description={t('journey.items.m2.desc')}
+                  dashed
                 />
               </div>
             </div>
@@ -501,22 +523,35 @@ function App() {
               </div>
               <div className="space-y-2">
                 <TimelineItem
-                  date="2024"
-                  title={t('journey.items.versailles.title')}
-                  organization={t('journey.items.versailles.org')}
-                  description={t('journey.items.versailles.desc')}
-                />
-                <TimelineItem
-                  date="2024"
+                  date={t('journey.items.lisn.date')}
                   title={t('journey.items.lisn.title')}
                   organization={t('journey.items.lisn.org')}
                   description={t('journey.items.lisn.desc')}
                 />
                 <TimelineItem
-                  date="2023"
-                  title={t('journey.items.edf.title')}
-                  organization={t('journey.items.edf.org')}
-                  description={t('journey.items.edf.desc')}
+                  date={t('journey.items.renaultgroup.date')}
+                  title={t('journey.items.renaultgroup.title')}
+                  organization={t('journey.items.renaultgroup.org')}
+                  description={t('journey.items.renaultgroup.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.bnf.date')}
+                  title={t('journey.items.bnf.title')}
+                  organization={t('journey.items.bnf.org')}
+                  description={t('journey.items.bnf.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.matmut.date')}
+                  title={t('journey.items.matmut.title')}
+                  organization={t('journey.items.matmut.org')}
+                  description={t('journey.items.matmut.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.horama.date')}
+                  title={t('journey.items.horama.title')}
+                  organization={t('journey.items.horama.org')}
+                  description={t('journey.items.horama.desc')}
+                  dashed
                 />
               </div>
             </div>
