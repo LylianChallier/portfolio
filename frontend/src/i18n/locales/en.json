@@ -7,10 +7,10 @@
     "contact": "Contact"
   },
   "hero": {
-    "greeting": "Hello! I'm",
+    "greeting": "",
     "name": "Lylian Challier",
-    "description": "MSc student at <1>CentraleSupelec</1>, specialized in mathematics, AI, machine learning and deep learning, applying for a 6 month experience starting March 2026 as a step toward a future industrial PhD.",
-    "subdescription": "This year I was selected for the <1>Digital Tech Year</1> selective track, an innovation program, and awarded the <2>MathTech Gap Year fellowship</2> (4 laureates, FMJH). This experience bridges real-world AI innovation with my PhD-oriented research goals."
+    "description": "MSc student at CentraleSupelec, specialized in mathematics, Machine Learning and Deep Learning. This year, I was selected for the Digital Tech Year, an innovation program that allows me to develop strong skills in agile prototyping through concrete projects for Renault Group, the French National Library and Matmut.",
+    "subdescription": "Having these skills is essential to move from theory to practice. I can thus contribute at several stages of a project: mathematical theory, model architecture, optimization algorithms, results interpretation as well as deployment."
   },
   "starProject": {
     "label": "Featured Project",
@@ -19,14 +19,14 @@
     "viewProject": "View project"
   },
   "activity": {
-    "title": "Current Project",
-    "projectTitle": "YOLOv11 Object Detection",
-    "projectDesc": "Real-time flood-sensitive object detection using YOLOv11 fine-tuning for Matmut insurance."
+    "title": "Currently",
+    "projectTitle": "POC for Matmut",
+    "projectDesc": "Real-time object detection with YOLOv11..."
   },
   "goal": {
-    "label": "Next Step",
-    "title": "Industrial PhD",
-    "date": "March 2026"
+    "label": "Goal",
+    "title": "Industrial PhD (CIFRE)",
+    "date": "September 2027"
   },
   "contact": {
     "title": "Contact",
@@ -36,11 +36,11 @@
   },
   "blog": {
     "title": "Latest Article",
-    "readMore": "Read more",
+    "readMore": "Coming soon to the site",
     "latestPost": {
-      "title": "Building Agentic AI Systems",
-      "excerpt": "How I built an intelligent assistant using LangChain and LangGraph for the Palace of Versailles...",
-      "date": "Jan 2025"
+      "title": "Explainable AI in Turbulent Convection",
+      "excerpt": "Summary of the research project conducted at LISN on discovering physical laws with explainable AI...",
+      "date": "Sept. 2025"
     }
   },
   "tech": {
@@ -54,28 +54,28 @@
     "title": "Projects",
     "items": {
       "versailles": {
-        "title": "Agentic AI Visit Assistant",
+        "title": "AI Visit Assistant",
         "desc": "Agentic AI assistant for tourist visits at the Palace of Versailles."
       },
+      "travelagent": {
+        "title": "AI Travel Planner",
+        "desc": "WebScraping and ColPali visual RAG for a travel planning agent."
+      },
       "turbulence": {
-        "title": "Explainable AI for Turbulence",
-        "desc": "Discovery of wall laws in turbulent convection with SINDy and KAN."
+        "title": "Explainable Models for Turbulent Convection",
+        "desc": "Discovery of wall laws in turbulent convection with SINDy and symbolic KANs."
       },
       "vae": {
         "title": "Variational Auto-Encoders",
-        "desc": "VAE implementation with interactive Streamlit application."
+        "desc": "Implementation of 3 trainable VAE architectures for image generation."
       },
-      "electric": {
-        "title": "Electric Demand Forecasting",
-        "desc": "Electric demand forecasting with Deep Learning for EDF."
+      "edf": {
+        "title": "Electric Forecasting",
+        "desc": "Electric demand forecasting with Deep Learning and AutoDL."
       },
-      "energy": {
-        "title": "Energy Consumption Modeling",
-        "desc": "Predictive modeling of energy consumption with R."
-      },
-      "movies": {
-        "title": "Movie Recommendations",
-        "desc": "Movie recommendation system with unsupervised learning."
+      "yolov11": {
+        "title": "YOLOv11 Object Detection",
+        "desc": "Real-time flood-sensitive object detection with YOLOv11 fine-tuning."
       }
     }
   },
@@ -85,59 +85,79 @@
     "experience": "Experience",
     "items": {
       "licence": {
+        "date": "2021 - 2024",
         "title": "Bachelor's in Mathematics",
-        "org": "University Paris-Saclay"
+        "org": "University Paris-Saclay",
+        "desc": ""
       },
       "exchange": {
+        "date": "Jan. - May 2024",
         "title": "Exchange program",
-        "org": "University of Seville"
+        "org": "University of Montreal",
+        "desc": "Beginning of my specialization in Machine Learning"
       },
       "m1": {
+        "date": "2024 - 2025",
         "title": "M1 Mathematics & AI",
-        "org": "University Paris-Saclay"
+        "org": "University Paris-Saclay",
+        "desc": "Advanced courses in AI, ML, Deep Learning and statistics"
       },
       "dty": {
+        "date": "2025 - 2026",
         "title": "Digital Tech Year",
         "org": "CentraleSupelec",
         "desc": "Innovation program, MathTech Gap Year fellowship (FMJH)"
       },
       "m2": {
+        "date": "2026 - 2027",
         "title": "M2 Mathematics & AI",
-        "org": "University Paris-Saclay"
-      },
-      "teacher": {
-        "title": "Teaching Assistant",
-        "org": "University Paris-Saclay",
-        "desc": "Mathematics courses for undergraduate students"
+        "org": "University Paris-Saclay & CentraleSupelec",
+        "desc": "DATA IA Institute scholarship"
       },
       "lisn": {
+        "date": "April - August 2025",
         "title": "Research Intern",
         "org": "LISN / CNRS",
-        "desc": "Explainable AI for turbulent convection"
+        "desc": "Physical law discovery with explainable AI, presentation at Junior Conference Data Science & Engineering 2025"
       },
       "hackathon": {
-        "title": "AI Hackathon",
-        "org": "CentraleSupelec",
-        "desc": "Team innovation challenge"
-      },
-      "prototyper": {
-        "title": "Prototyper",
+        "date": "Sept. 2025",
+        "title": "Agentic AI Hackathon",
         "org": "Palace of Versailles",
-        "desc": "Agentic AI visit assistant with LangChain"
+        "desc": "Agentic AI assistant with LangChain"
+      },
+      "renaultgroup": {
+        "date": "Sept. - Oct. 2025",
+        "title": "Agile Prototyper",
+        "org": "Paris Digital Lab x Renault Group",
+        "desc": "Internal marketplace and automation"
+      },
+      "bnf": {
+        "date": "Nov. - Dec. 2025",
+        "title": "Agile Prototyper",
+        "org": "Paris Digital Lab x French National Library",
+        "desc": "Document search using multimodal RAG on a large archive corpus (image and press) with a chatbot UI"
+      },
+      "matmut": {
+        "date": "Jan. - Feb. 2026",
+        "title": "Agile Prototyper",
+        "org": "Paris Digital Lab x Matmut",
+        "desc": "Flood prevention webapp with augmented reality and object detection models (YOLOv11)"
       },
       "horama": {
-        "title": "AI Intern",
-        "org": "Horama",
-        "desc": "AI project in company"
+        "date": "March - August 2026",
+        "title": "AI Startup Intern",
+        "org": "Horama AI",
+        "desc": "Visual analysis with generative AI across multiple sectors"
       }
     }
   },
   "cta": {
     "title": "Let's work together",
-    "description": "Looking for a 6-month experience starting March 2026. Open to research internships and industrial PhD opportunities.",
-    "button": "Get in touch"
+    "description": "Looking for a 6-month experience starting March 2027 that could lead to an industrial PhD (CIFRE).",
+    "button": "Contact me"
   },
   "footer": {
-    "copyright": "© 2026 Lylian Challier. Built with ♡ and Claude."
+    "copyright": "© 2026 Lylian Challier. Built with love and Claude."
   }
 }
