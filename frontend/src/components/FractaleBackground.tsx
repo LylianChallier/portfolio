@@ -91,12 +91,18 @@ const vertexShader = `
 
 function JuliaPlane() {
   const meshRef = useRef<THREE.Mesh>(null);
-  const { size } = useThree();
+  const { size, gl } = useThree();
   const [scrollY, setScrollY] = useState(0);
+
+  // Use actual canvas pixel dimensions for consistent rendering across browsers
+  const getResolution = () => {
+    const canvas = gl.domElement;
+    return new THREE.Vector2(canvas.width, canvas.height);
+  };
 
   const uniforms = useRef({
     scrollY: { value: 0 },
-    resolution: { value: new THREE.Vector2(size.width, size.height) }
+    resolution: { value: getResolution() }
   });
 
   useEffect(() => {
@@ -111,8 +117,10 @@ function JuliaPlane() {
   }, []);
 
   useEffect(() => {
-    uniforms.current.resolution.value.set(size.width, size.height);
-  }, [size]);
+    // Use actual canvas dimensions instead of CSS size
+    const canvas = gl.domElement;
+    uniforms.current.resolution.value.set(canvas.width, canvas.height);
+  }, [size, gl]);
 
   useFrame(() => {
     if (meshRef.current) {
@@ -139,6 +147,7 @@ export default function JuliaBackground() {
       <Canvas
         camera={{ position: [0, 0, 1] }}
         style={{ background: '#0a0a1a' }}
+        dpr={[1, 2]}
         gl={{ antialias: true, alpha: false }}
         onCreated={() => {
           console.log('WebGL context created successfully');
