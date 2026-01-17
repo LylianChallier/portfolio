@@ -5,6 +5,7 @@ import {
   ArrowUpRight, Target, Code,
   ExternalLink, BookOpen, GraduationCap, Briefcase, Globe, FileText, Star
 } from 'lucide-react';
+import JuliaBackground from './components/JuliaBackground';
 
 // Types
 interface BentoItemProps {
@@ -213,10 +214,8 @@ function App() {
 
   return (
     <div className="min-h-screen font-poppins relative">
-      {/* Effets de fond papier */}
-      <div className="paper-bg" />
-      <div className="paper-fiber" />
-      <div className="paper-vignette" />
+      {/* Fond Julia interactif */}
+      <JuliaBackground />
 
       {/* Navbar flottante */}
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
@@ -249,21 +248,20 @@ function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-ink-dark mb-6 leading-tight"
+                className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight"
               >
                 {t('hero.greeting')}{' '}
-                <span className="text-royal-500">{t('hero.name')}</span>
-                {/* <span className="inline-block ml-2 animate-pulse">🦁</span> */}
+                <span className="text-white">{t('hero.name')}</span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-ink-medium text-lg md:text-xl leading-relaxed"
+                className="text-white/80 text-lg md:text-xl leading-relaxed"
               >
                 <Trans i18nKey="hero.description">
-                  MSc student at <span className="font-semibold text-royal-600">CentraleSupelec</span>, specialized in mathematics, AI, machine learning and deep learning, applying for a 6 month experience starting March 2026 as a step toward a future industrial PhD.
+                  MSc student at <span className="font-semibold text-royal-300">CentraleSupelec</span>, specialized in mathematics, AI, machine learning and deep learning, applying for a 6 month experience starting March 2026 as a step toward a future industrial PhD.
                 </Trans>
               </motion.p>
 
@@ -271,10 +269,10 @@ function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-ink-light text-base md:text-lg leading-relaxed mt-4"
+                className="text-white/60 text-base md:text-lg leading-relaxed mt-4"
               >
                 <Trans i18nKey="hero.subdescription">
-                  This year I was selected for the <span className="font-medium text-ink-dark">Digital Tech Year</span> selective track, an innovation program, and awarded the <span className="font-medium text-ink-dark">MathTech Gap Year fellowship</span> (4 laureates, FMJH). This experience bridges real-world AI innovation with my PhD-oriented research goals.
+                  This year I was selected for the <span className="font-medium text-white/90">Digital Tech Year</span> selective track, an innovation program, and awarded the <span className="font-medium text-white/90">MathTech Gap Year fellowship</span> (4 laureates, FMJH). This experience bridges real-world AI innovation with my PhD-oriented research goals.
                 </Trans>
               </motion.p>
             </div>
@@ -434,10 +432,10 @@ function App() {
             viewport={{ once: true }}
             className="flex items-center gap-3 mb-8"
           >
-            <div className="p-2 bg-royal-500/10 rounded-xl">
-              <BookOpen className="text-royal-500" size={24} />
+            <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
+              <BookOpen className="text-white" size={24} />
             </div>
-            <h2 className="text-3xl font-bold text-ink-dark">{t('projects.title')}</h2>
+            <h2 className="text-3xl font-bold text-white">{t('projects.title')}</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -462,10 +460,10 @@ function App() {
             viewport={{ once: true }}
             className="flex items-center gap-3 mb-8"
           >
-            <div className="p-2 bg-royal-500/10 rounded-xl">
-              <GraduationCap className="text-royal-500" size={24} />
+            <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
+              <GraduationCap className="text-white" size={24} />
             </div>
-            <h2 className="text-3xl font-bold text-ink-dark">{t('journey.title')}</h2>
+            <h2 className="text-3xl font-bold text-white">{t('journey.title')}</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -551,8 +549,8 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 py-10 text-center border-t border-royal-100 bg-white/50">
-        <p className="text-ink-light text-sm">
+      <footer className="relative z-10 py-10 text-center border-t border-white/10 bg-black/30 backdrop-blur-md">
+        <p className="text-white/60 text-sm">
           {t('footer.copyright')}
         </p>
       </footer>
