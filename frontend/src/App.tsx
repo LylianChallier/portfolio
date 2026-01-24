@@ -148,6 +148,14 @@ const ProjectCard = ({ title, desc, icon, stack, link }: ProjectCardProps) => (
   </motion.a>
 );
 
+// Timeline Arrow (future indicator)
+const TimelineArrow = () => (
+  <div className="relative pl-8 pb-4">
+    <div className="absolute left-0 top-1 w-4 h-4 flex items-center justify-center text-emerald-500 text-sm">▲</div>
+    <div className="absolute left-[7px] top-5 w-0.5 h-full border-l-2 border-dashed border-emerald-300" />
+  </div>
+);
+
 // Timeline Item
 const TimelineItem = ({ date, title, organization, description, dashed = false }: TimelineItemProps) => (
   <motion.div
@@ -615,23 +623,13 @@ function App() {
                 <h3 className="text-xl font-bold text-ink-dark">{t('journey.education')}</h3>
               </div>
               <div className="space-y-2">
+                <TimelineArrow />
                 <TimelineItem
-                  date={t('journey.items.licence.date')}
-                  title={t('journey.items.licence.title')}
-                  organization={t('journey.items.licence.org')}
-                  description={t('journey.items.licence.desc')}
-                />
-                <TimelineItem
-                  date={t('journey.items.exchange.date')}
-                  title={t('journey.items.exchange.title')}
-                  organization={t('journey.items.exchange.org')}
-                  description={t('journey.items.exchange.desc')}
-                />
-                <TimelineItem
-                  date={t('journey.items.m1.date')}
-                  title={t('journey.items.m1.title')}
-                  organization={t('journey.items.m1.org')}
-                  description={t('journey.items.m1.desc')}
+                  date={t('journey.items.m2.date')}
+                  title={t('journey.items.m2.title')}
+                  organization={t('journey.items.m2.org')}
+                  description={t('journey.items.m2.desc')}
+                  dashed
                 />
                 <TimelineItem
                   date={t('journey.items.dty.date')}
@@ -641,11 +639,22 @@ function App() {
                   dashed
                 />
                 <TimelineItem
-                  date={t('journey.items.m2.date')}
-                  title={t('journey.items.m2.title')}
-                  organization={t('journey.items.m2.org')}
-                  description={t('journey.items.m2.desc')}
-                  dashed
+                  date={t('journey.items.m1.date')}
+                  title={t('journey.items.m1.title')}
+                  organization={t('journey.items.m1.org')}
+                  description={t('journey.items.m1.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.exchange.date')}
+                  title={t('journey.items.exchange.title')}
+                  organization={t('journey.items.exchange.org')}
+                  description={t('journey.items.exchange.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.licence.date')}
+                  title={t('journey.items.licence.title')}
+                  organization={t('journey.items.licence.org')}
+                  description={t('journey.items.licence.desc')}
                 />
               </div>
             </div>
@@ -657,23 +666,13 @@ function App() {
                 <h3 className="text-xl font-bold text-ink-dark">{t('journey.experience')}</h3>
               </div>
               <div className="space-y-2">
+                <TimelineArrow />
                 <TimelineItem
-                  date={t('journey.items.lisn.date')}
-                  title={t('journey.items.lisn.title')}
-                  organization={t('journey.items.lisn.org')}
-                  description={t('journey.items.lisn.desc')}
-                />
-                <TimelineItem
-                  date={t('journey.items.renaultgroup.date')}
-                  title={t('journey.items.renaultgroup.title')}
-                  organization={t('journey.items.renaultgroup.org')}
-                  description={t('journey.items.renaultgroup.desc')}
-                />
-                <TimelineItem
-                  date={t('journey.items.bnf.date')}
-                  title={t('journey.items.bnf.title')}
-                  organization={t('journey.items.bnf.org')}
-                  description={t('journey.items.bnf.desc')}
+                  date={t('journey.items.horama.date')}
+                  title={t('journey.items.horama.title')}
+                  organization={t('journey.items.horama.org')}
+                  description={t('journey.items.horama.desc')}
+                  dashed
                 />
                 <TimelineItem
                   date={t('journey.items.matmut.date')}
@@ -682,11 +681,22 @@ function App() {
                   description={t('journey.items.matmut.desc')}
                 />
                 <TimelineItem
-                  date={t('journey.items.horama.date')}
-                  title={t('journey.items.horama.title')}
-                  organization={t('journey.items.horama.org')}
-                  description={t('journey.items.horama.desc')}
-                  dashed
+                  date={t('journey.items.bnf.date')}
+                  title={t('journey.items.bnf.title')}
+                  organization={t('journey.items.bnf.org')}
+                  description={t('journey.items.bnf.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.renaultgroup.date')}
+                  title={t('journey.items.renaultgroup.title')}
+                  organization={t('journey.items.renaultgroup.org')}
+                  description={t('journey.items.renaultgroup.desc')}
+                />
+                <TimelineItem
+                  date={t('journey.items.lisn.date')}
+                  title={t('journey.items.lisn.title')}
+                  organization={t('journey.items.lisn.org')}
+                  description={t('journey.items.lisn.desc')}
                 />
               </div>
             </div>
