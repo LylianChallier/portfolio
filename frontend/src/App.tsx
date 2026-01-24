@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { useTranslation, Trans } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
   Github, Linkedin, Mail,
   ArrowUpRight, Target, Code,
@@ -243,9 +244,9 @@ const MobileMenu = ({ isOpen, onClose, t }: { isOpen: boolean; onClose: () => vo
                 <a href="#parcours" onClick={onClose} className="text-lg text-ink-medium hover:text-royal-500 transition-colors py-2">
                   {t('nav.journey')}
                 </a>
-                <a href="#blog" onClick={onClose} className="text-lg text-ink-medium hover:text-royal-500 transition-colors py-2">
+                <Link to="/blog" onClick={onClose} className="text-lg text-ink-medium hover:text-royal-500 transition-colors py-2">
                   {t('nav.blog')}
-                </a>
+                </Link>
                 <a href="mailto:lylian.challier@student-cs.fr" onClick={onClose} className="text-lg text-ink-dark font-medium hover:text-royal-500 transition-colors py-2">
                   {t('nav.contact')}
                 </a>
@@ -366,7 +367,7 @@ function App() {
           <a href="#" className="font-bold text-ink-dark hover:text-royal-500 transition-colors">{t('nav.home')}</a>
           <a href="#projets" className="text-sm text-ink-medium hover:text-royal-500 transition-colors">{t('nav.projects')}</a>
           <a href="#parcours" className="text-sm text-ink-medium hover:text-royal-500 transition-colors">{t('nav.journey')}</a>
-          <a href="#blog" className="text-sm text-ink-medium hover:text-royal-500 transition-colors">{t('nav.blog')}</a>
+          <Link to="/blog" className="text-sm text-ink-medium hover:text-royal-500 transition-colors">{t('nav.blog')}</Link>
           <a href="mailto:lylian.challier@student-cs.fr" className="text-sm text-ink-dark font-medium hover:text-royal-500 transition-colors">
             {t('nav.contact')}
           </a>
@@ -527,13 +528,13 @@ function App() {
                 <h4 className="text-lg font-bold text-ink-dark mb-2 leading-tight">{t('blog.latestPost.title')}</h4>
                 <p className="text-ink-light text-sm leading-relaxed">{t('blog.latestPost.excerpt')}</p>
               </div>
-              <a
-                href="#blog"
+              <Link
+                to="/blog"
                 className="inline-flex items-center gap-1 text-royal-500 font-medium text-sm hover:text-royal-600 transition-colors mt-3"
               >
                 {t('blog.readMore')}
                 <ArrowUpRight size={14} />
-              </a>
+              </Link>
             </div>
           </BentoItem>
 
